@@ -1,7 +1,7 @@
+import { Pill } from "@moldovanalexandruvasile/unity-marketing";
 import { useTranslation } from "react-i18next";
 
 import { StoreSoonRow } from "../../components/StoreSoonRow";
-import { Pill } from "../../components/ui/Pill";
 import { HeroTitle } from "./HeroTitle";
 
 // The hero's left column: what Casita is, and where it's coming.

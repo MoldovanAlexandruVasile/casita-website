@@ -1,13 +1,5 @@
+import { Card, CardText, CardTitle, Container, Section, SectionLead, SectionTitle, StepNumber } from "@moldovanalexandruvasile/unity-marketing";
 import { useTranslation } from "react-i18next";
-
-import { Card } from "../components/ui/Card";
-import { CardText } from "../components/ui/CardText";
-import { CardTitle } from "../components/ui/CardTitle";
-import { Container } from "../components/ui/Container";
-import { Section } from "../components/ui/Section";
-import { SectionLead } from "../components/ui/SectionLead";
-import { SectionTitle } from "../components/ui/SectionTitle";
-import { StepNumber } from "../components/ui/StepNumber";
 
 type Step = { title: string; text: string };
 

@@ -1,9 +1,8 @@
+import { Container, Section } from "@moldovanalexandruvasile/unity-marketing";
 import { useTranslation } from "react-i18next";
 
 import { StoreSoonRow } from "../components/StoreSoonRow";
 import { AppIcon } from "../components/ui/AppIcon";
-import { Container } from "../components/ui/Container";
-import { Section } from "../components/ui/Section";
 
 // The closing card: Casita is almost here (no download yet).
 export const SoonSection = () => {

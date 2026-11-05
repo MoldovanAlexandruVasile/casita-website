@@ -1,4 +1,4 @@
-import { AppleIcon } from "./icons/AppleIcon";
+import { AppleIcon } from "@moldovanalexandruvasile/unity-marketing";
 import { PlayIcon } from "./icons/PlayIcon";
 import { StoreSoon } from "./StoreSoon";
 

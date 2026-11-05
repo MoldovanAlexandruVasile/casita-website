@@ -1,10 +1,5 @@
+import { Container, IconTile, Section, SectionLead, SectionTitle } from "@moldovanalexandruvasile/unity-marketing";
 import { useTranslation } from "react-i18next";
-
-import { Container } from "../components/ui/Container";
-import { IconTile } from "../components/ui/IconTile";
-import { Section } from "../components/ui/Section";
-import { SectionLead } from "../components/ui/SectionLead";
-import { SectionTitle } from "../components/ui/SectionTitle";
 
 type Perk = { title: string; text: string };
 
