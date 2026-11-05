@@ -1,6 +1,5 @@
+import { cx } from "@moldovanalexandruvasile/unity-marketing";
 import { useTranslation } from "react-i18next";
-
-import { cx } from "../../utils/cx";
 
 type Props = { className?: string };
 

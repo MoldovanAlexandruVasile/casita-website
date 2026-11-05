@@ -1,10 +1,8 @@
+import { Container, cx, FROSTED_BAR } from "@moldovanalexandruvasile/unity-marketing";
 import type { ReactNode } from "react";
 
-import { LanguagePicker } from "../components/language/LanguagePicker";
-import { Container } from "../components/ui/Container";
-import { FROSTED_BAR } from "../components/ui/frostedBar";
+import { LanguagePicker } from "../components/LanguagePicker";
 import { SoonBadge } from "../components/ui/SoonBadge";
-import { cx } from "../utils/cx";
 import { Brand } from "./Brand";
 
 type Props = {

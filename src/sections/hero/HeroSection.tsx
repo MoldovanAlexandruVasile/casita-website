@@ -1,5 +1,5 @@
+import { Container } from "@moldovanalexandruvasile/unity-marketing";
 import { AppPhone } from "../../components/AppPhone";
-import { Container } from "../../components/ui/Container";
 import { HeroCopy } from "./HeroCopy";
 
 // Text beside the app on a phone; stacked on narrow screens.
