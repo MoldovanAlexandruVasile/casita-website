@@ -1,0 +1,39 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Claude app settings
+.claude/
+
+# Capture tool (screenshots, slides, promo video)
+capture/node_modules
+capture/.frames
+capture/stills
+
+# Capture tool (screens, slides, promo video): generated, rebuilt by its scripts
+capture/node_modules
+capture/raw
+capture/.frames
+capture/.preview
+capture/stills

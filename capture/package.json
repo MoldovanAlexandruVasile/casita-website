@@ -1,0 +1,9 @@
+{
+  "name": "casita-capture",
+  "private": true,
+  "type": "module",
+  "description": "Showcase slides and the promo video for the website, made from screenshots of the real app in the iOS Simulator.",
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

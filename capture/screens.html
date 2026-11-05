@@ -1,0 +1,512 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style id="fonts"></style>
+<style>
+  /* One iPhone 17 Pro screen (402×874 pt), drawn from Casita's components:
+     the same spacing, radii, typography and colours as their makeStyles(). */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 402px; height: 874px; overflow: hidden; background: #000; }
+  body { -webkit-font-smoothing: antialiased; }
+  .screen { position: relative; width: 402px; height: 874px; overflow: hidden; background: var(--background); color: var(--onSurface); font-family: Inter; }
+  .glow { position: absolute; inset: 0; }
+  svg { display: block; flex: none; }
+
+  /* typography tokens (theme/constants/typography-tokens.ts) */
+  .hero { font: 800 32px/1.2 Jakarta; }
+  .headlineLg { font: 700 26px/1.2 Jakarta; }
+  .headlineMd { font: 700 22px/1.25 Jakarta; }
+  .headlineSm { font: 600 18px/1.25 Jakarta; }
+  .bodyLg { font: 500 16px/1.25 Inter; }
+  .bodyMd { font: 400 14px/1.3 Inter; }
+  .bodySm { font: 400 12px/1.3 Inter; }
+  .labelLg { font: 600 14px/1.25 Inter; }
+  .labelMd { font: 600 12px/1.25 Inter; }
+  .labelSm { font: 600 10px/1.25 Inter; }
+  .labelCaps { font: 700 12px/1.25 Inter; text-transform: uppercase; }
+  .w600 { font-weight: 600; } .w700 { font-weight: 700; }
+
+  /* status bar */
+  .status { position: absolute; top: 0; left: 0; right: 0; height: 62px; display: flex; align-items: center; justify-content: space-between; padding: 6px 34px 0 52px; z-index: 5; font: 600 17px/1 -apple-system, "SF Pro Text", Inter; color: var(--onSurface); }
+  .status .right { display: flex; gap: 7px; align-items: center; }
+
+  /* ScreenShell: header at the top inset, content 20pt in, 20pt apart */
+  .shell { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+  .shell-header { padding: 62px 20px 4px; }
+  .shell-content { display: flex; flex-direction: column; gap: 20px; padding: 16px 20px 160px; }
+
+  /* Header */
+  .header { display: flex; align-items: center; gap: 12px; }
+  .header .text { flex: 1; }
+  .header .title { color: var(--primary); }
+  .header .subtitle { color: var(--onSurfaceVariant); }
+
+  /* Card */
+  .card { position: relative; border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: var(--surfaceContainerLowest); box-shadow: 0 12px 32px var(--shadow18); }
+  .card > * { position: relative; }
+  .card.highlight { background: var(--primaryContainer); overflow: hidden; }
+  .card.highlight::before { content: ""; position: absolute; inset: 0; border-radius: 24px; background: linear-gradient(160deg, var(--secondaryFill) -20%, var(--primaryContainer) 46%, var(--primaryContainer) 100%); }
+  .card.secondary { background: var(--surfaceContainer); border-radius: 16px; padding: 16px; gap: 8px; box-shadow: none; }
+  .card-header { display: flex; align-items: center; gap: 8px; }
+  .card-header .t { flex: 1; color: var(--primary); }
+
+  /* Badge */
+  .badge { display: inline-flex; align-items: center; justify-content: center; gap: 4px; border-radius: 999px; height: 28px; min-width: 28px; padding: 0 12px; white-space: nowrap; align-self: flex-start; }
+  .badge.sm { height: 20px; min-width: 20px; padding: 0 6px; }
+  .badge.inverse { background: var(--inverse14); color: var(--inverseOnSecondary); }
+  .badge.success { background: var(--success20); color: var(--primary); }
+  .badge.warning { background: var(--danger15); color: var(--danger); }
+  .badge.danger { background: var(--danger); color: var(--onError); }
+  .badge.caution { background: var(--warningContainer); color: var(--onWarningContainer); }
+
+  /* ProgressBar */
+  .bar { border-radius: 999px; overflow: hidden; height: 6px; background: var(--surfaceContainerHighest); }
+  .bar.sm { height: 4px; } .bar.lg { height: 10px; }
+  .bar > i { display: block; height: 100%; border-radius: 999px; }
+  .bar.inverse { background: var(--inverse20); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; height: 44px; padding: 0 24px; font: 600 16px/20px Inter; white-space: nowrap; }
+  .btn.sm { height: 36px; padding: 0 16px; font: 600 14px/18px Inter; }
+  .btn.primary { background: var(--primaryContainer); color: var(--inverseOnSecondary); box-shadow: 0 6px 24px var(--shadow22); }
+  .btn.outline { border: 1.5px solid var(--outlineVariant); color: var(--primary); }
+  .btn.dashed { border: 1.5px dashed var(--outline); color: var(--primary); width: 100%; }
+  .btn.ghost { color: var(--secondary); }
+  .link { display: inline-flex; align-items: center; gap: 4px; color: var(--secondary); font: 500 16px/20px Inter; font-weight: 600; }
+  .iconbtn { width: 36px; height: 36px; border-radius: 999px; display: grid; place-items: center; background: var(--surfaceContainerLowest); color: var(--primary); box-shadow: 0 4px 20px var(--shadow08); }
+
+  .icircle { border-radius: 999px; display: grid; place-items: center; flex: none; color: var(--onSurface); }
+  .icircle.sm { width: 32px; height: 32px; } .icircle.md { width: 40px; height: 40px; }
+  .icircle.neutral { background: var(--surfaceContainerHighest); }
+  .icircle.success { background: var(--success20); }
+
+  .row { display: flex; align-items: center; }
+  .between { justify-content: space-between; }
+  .muted { color: var(--onSurfaceVariant); }
+  .outline-c { color: var(--outline); }
+  .sep { height: 1px; background: var(--outlineVariant); }
+
+  /* Bottom navigation (features/bottom-navigation) */
+  .nav { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; padding: 16px 16px 34px; }
+  .nav .bar-glass { position: relative; display: flex; align-items: center; padding: 8px; width: 370px; border-radius: 999px; box-shadow: 0 12px 32px var(--shadow18); }
+  .nav .bar-glass::before { content: ""; position: absolute; inset: 0; border-radius: 999px; background: var(--glassTint); backdrop-filter: blur(18px) saturate(1.6); -webkit-backdrop-filter: blur(18px) saturate(1.6); border: 1px solid var(--glassHighlight); }
+  .nav .item { position: relative; width: 72.5px; height: 43px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--onSurfaceVariant); }
+  .nav .item.active { color: var(--onSecondaryContainer); }
+  .nav .item.active::before { content: ""; position: absolute; inset: 0; border-radius: 999px; background: var(--secondaryContainer); opacity: .9; }
+  .nav .item > * { position: relative; }
+  .nav .gap { width: 64px; }
+  .nav .add { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 56px; height: 56px; border-radius: 999px; background: var(--primaryContainer); border: 4px solid var(--surfaceContainerLowest); color: var(--inverseOnSecondary); display: grid; place-items: center; box-shadow: 0 6px 24px var(--shadow22); }
+
+  /* Segments */
+  .segments { display: flex; padding: 4px; border-radius: 999px; background: var(--surfaceContainerHigh); }
+  .segments .seg { flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 8px; border-radius: 999px; color: var(--onSurface); }
+  .segments .seg.on { background: var(--primaryContainer); color: var(--inverseOnSecondary); }
+
+  /* Heatmap */
+  .heat-row { display: flex; gap: 4px; }
+  .heat-cell { flex: 1; aspect-ratio: 1.45; border-radius: 999px; display: grid; place-items: center; position: relative; }
+  .heat-cell.empty { border: 1.5px solid var(--surfaceContainerHighest); color: var(--outlineVariant); }
+  .heat-cell.today::after { content: ""; position: absolute; inset: 0; border-radius: 999px; border: 2px solid var(--primaryContainer); }
+  .heat-cell.today > span { position: absolute; inset: 4px 6px; border-radius: 999px; display: grid; place-items: center; }
+
+  /* Modal (plan) */
+  .modal { position: absolute; inset: 0; background: var(--surface); z-index: 3; display: flex; flex-direction: column; }
+  .seg-card { background: var(--surfaceContainerLowest); padding: 8px 16px; }
+  .seg-card.first { border-radius: 28px 28px 0 0; padding-top: 16px; }
+  .seg-card.last { border-radius: 0 0 28px 28px; padding-bottom: 16px; }
+
+  /* Settings */
+  .settings-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; }
+  .settings-row.div { border-bottom: 1px solid var(--settingsDivider); }
+  .tile { width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; background: var(--surfaceContainerLow); color: var(--primary); flex: none; }
+  .tile.hl { background: var(--secondaryFixed50); }
+  .section-title { color: var(--onSurfaceVariant); padding-left: 20px; }
+  .switch { width: 51px; height: 31px; border-radius: 999px; background: var(--primaryContainer); position: relative; flex: none; }
+  .switch::after { content: ""; position: absolute; right: 2px; top: 2px; width: 27px; height: 27px; border-radius: 999px; background: var(--switchThumb); box-shadow: 0 2px 6px rgb(0 0 0 / .2); }
+  .avatar { width: 48px; height: 48px; border-radius: 999px; background: var(--primary); color: var(--onPrimary); display: grid; place-items: center; flex: none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  // window.setup(appData) once, then window.render({ screen, lang, theme, signedIn }).
+  let APP;
+  const TODAY = new Date(2026, 10, 18, 9, 41); // Wednesday 18 November 2026, morning
+  const USER = { name: "Ana Popescu", email: "ana@example.com" };
+
+  // Demo data, in euros; Romanian screens show lei at 5 lei to the euro.
+  const DATA = {
+    incomes: [
+      { en: "Ana's salary", ro: "Salariul Anei", amount: 2600 },
+      { en: "Mihai's salary", ro: "Salariul lui Mihai", amount: 1600 },
+    ],
+    savingsGoal: 600,
+    saved: 450,
+    categories: [
+      { en: "Eating out", ro: "Restaurante", icon: "Restaurant01Icon", cap: 300, spent: 276 },
+      { en: "Rent & bills", ro: "Chirie și facturi", icon: "ElectricHome01Icon", cap: 1300, spent: 860 },
+      { en: "Transport", ro: "Transport", icon: "Car01Icon", cap: 250, spent: 142 },
+      { en: "Groceries", ro: "Cumpărături", icon: "ShoppingCart01Icon", cap: 650, spent: 338 },
+      { en: "Kids", ro: "Copii", icon: "BabyBottleIcon", cap: 350, spent: 96 },
+      { en: "Health", ro: "Sănătate", icon: "MedicineBottle01Icon", cap: 150, spent: 38 },
+      { en: "Fun", ro: "Distracție", icon: "Film01Icon", cap: 200, spent: 30 },
+    ],
+    spendings: [
+      { cat: 3, en: "Farmers' market", ro: "Piața Obor", amount: 42.6, day: 0 },
+      { cat: 0, en: "Trattoria", ro: "Trattoria", amount: 58, day: 0 },
+      { cat: 2, en: "Fuel station", ro: "Benzinărie", amount: 61.3, day: 1 },
+      { cat: 5, en: "Pharmacy", ro: "Farmacie", amount: 18.9, day: 1 },
+      { cat: 3, en: "Corner bakery", ro: "Brutăria din colț", amount: 9.4, day: 1 },
+    ],
+    vaults: [
+      { en: "Emergency fund", ro: "Fond de urgență", icon: "Shield01Icon", balance: 4200, goal: 6000 },
+      { en: "Summer holiday", ro: "Vacanța de vară", icon: "PlaneTakeoffIcon", balance: 1350, goal: 2500 },
+      { en: "New car", ro: "Mașină nouă", icon: "Car03Icon", balance: 2800, goal: 12000 },
+    ],
+    // Heat level (0–4) of each day of November so far: weekends run hottest.
+    heat: [3, 1, 2, 1, 2, 1, 4, 4, 1, 2, 1, 2, 1, 4, 3, 2, 1, 2],
+  };
+
+  let lang, C, T, money;
+
+  const rgba = (hex, a) => {
+    const n = parseInt(hex.slice(1), 16);
+    return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+  };
+
+  const applyTheme = (theme) => {
+    C = APP.colors[theme];
+    const vars = { ...C };
+    Object.assign(vars, {
+      shadow18: rgba(C.shadow, 0.18), shadow22: rgba(C.shadow, 0.22), shadow08: rgba(C.shadow, 0.08),
+      inverse14: rgba(C.inverseOnSecondary, 0.14), inverse20: rgba(C.inverseOnSecondary, 0.2),
+      success20: rgba(C.success, 0.2), danger15: rgba(C.danger, 0.15),
+      secondaryFixed50: rgba(C.secondaryFixed, 0.5), settingsDivider: rgba(C.surfaceContainerHighest, 0.8),
+      glassTint: rgba(C.surfaceContainerLowest, theme === "dark" ? 0.55 : 0.6),
+      switchThumb: theme === "dark" ? C.onSurface : C.surfaceContainerLowest,
+    });
+    const root = document.documentElement.style;
+    for (const [k, v] of Object.entries(vars)) root.setProperty(`--${k}`, v);
+  };
+
+  // i18n: "ns:key.path", {{params}}, _zero/_one/_few/_other plurals.
+  const plural = new Map();
+  const t = (key, params = {}) => {
+    const [ns, path] = key.includes(":") ? key.split(":") : ["common", key];
+    let node = path.split(".").reduce((o, k) => o?.[k], APP.locales[lang][ns]);
+    if (typeof node !== "string" && "count" in params) {
+      const base = path.split(".").reduce((o, k) => o?.[k], APP.locales[lang][ns]);
+      const parent = path.split(".").slice(0, -1).reduce((o, k) => o?.[k], APP.locales[lang][ns]);
+      const leaf = path.split(".").pop();
+      const rule = params.count === 0 && parent?.[`${leaf}_zero`] ? "zero" : new Intl.PluralRules(lang).select(params.count);
+      node = parent?.[`${leaf}_${rule}`] ?? parent?.[`${leaf}_other`] ?? base;
+    }
+    if (typeof node !== "string") return `[${key}]`;
+    return node.replace(/{{(\w+)}}/g, (_, p) => params[p] ?? "");
+  };
+
+  const RATE = { en: 1, ro: 5 };
+  const CURRENCY = { en: "EUR", ro: "RON" };
+  const fmt = (eur, opts = {}) => {
+    const s = new Intl.NumberFormat(lang, { style: "currency", currency: CURRENCY[lang], currencyDisplay: "narrowSymbol", ...opts }).format(eur * RATE[lang]);
+    return s.replace("RON", "lei");
+  };
+
+  const icon = (name, size = 24, color = "currentColor", stroke) => {
+    const parts = APP.icons[name].map(([tag, attrs]) => {
+      const a = Object.entries(attrs).filter(([k]) => k !== "key").map(([k, v]) => {
+        if (k === "strokeWidth" && stroke) v = stroke;
+        return `${k.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase())}="${v}"`;
+      });
+      return `<${tag} ${a.join(" ")}/>`;
+    });
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" style="color:${color}">${parts.join("")}</svg>`;
+  };
+
+  const monthName = (date, opts) => new Intl.DateTimeFormat(lang, opts).format(date).replace(/^./, (m) => m.toUpperCase());
+  const name = (item) => item[lang];
+
+  // ---------- shared components ----------
+  const statusBar = () => `
+    <div class="status"><span>9:41</span><span class="right">
+      <svg width="19" height="12" viewBox="0 0 19 12" fill="currentColor"><rect x="0" y="8" width="3.2" height="4" rx="1"/><rect x="5" y="5.5" width="3.2" height="6.5" rx="1"/><rect x="10" y="3" width="3.2" height="9" rx="1"/><rect x="15" y="0" width="3.2" height="12" rx="1"/></svg>
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><path d="M8.5 2.3c2.4 0 4.6.9 6.2 2.5l1.2-1.2A10.4 10.4 0 0 0 8.5.6 10.4 10.4 0 0 0 1.1 3.6l1.2 1.2a8.7 8.7 0 0 1 6.2-2.5Zm0 3.4c1.5 0 2.8.6 3.8 1.5l1.2-1.2a7 7 0 0 0-10 0l1.2 1.2c1-1 2.3-1.5 3.8-1.5Zm0 3.4c.6 0 1.1.2 1.5.6L8.5 11.2 7 9.7c.4-.4.9-.6 1.5-.6Z"/></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.8" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.5" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill="currentColor" opacity=".45"/></svg>
+    </span></div>`;
+
+  const glow = () => `<div class="glow" style="background:
+      linear-gradient(16deg, ${rgba(C.secondaryFixed, 0.45)} 0%, ${rgba(C.secondaryFixed, 0)} 62%),
+      linear-gradient(225deg, ${rgba(C.secondaryFill, 0.18)} 0%, ${rgba(C.secondaryFill, 0)} 62%),
+      linear-gradient(135deg, ${rgba(C.success, 0.28)} 0%, ${rgba(C.success, 0)} 72%), var(--background)"></div>`;
+
+  const header = (title, subtitle, action = "") => `
+    <div class="header"><div class="text">
+      <div class="headlineMd title">${title}</div>${subtitle ? `<div class="bodyMd subtitle">${subtitle}</div>` : ""}
+    </div>${action}</div>`;
+
+  const badge = (text, variant = "success", { size = "md", icon: ic, style = "" } = {}) => {
+    const label = size === "sm" ? "labelSm" : "labelMd";
+    return `<span class="badge ${variant} ${size}" style="${style}">${ic ? icon(ic, size === "sm" ? 12 : 16) : ""}<span class="${label}">${text}</span></span>`;
+  };
+
+  const bar = (value, max, variant, size = "") => {
+    const pct = Math.min(Math.max(value / max, 0), 1) * 100;
+    const fill = { success: C.success, warning: C.warning, danger: C.danger, primary: C.primaryContainer, secondary: C.surfaceTint, inverse: C.success }[variant];
+    return `<div class="bar ${size} ${variant === "inverse" ? "inverse" : ""}"><i style="width:${pct}%;background:${fill}"></i></div>`;
+  };
+
+  const linkBtn = (label) => `<span class="link">${label}${icon("ArrowRight01Icon", 18)}</span>`;
+
+  const nav = (active) => {
+    const tab = (ns, ic) => `<div class="item ${active === ns ? "active" : ""}">${icon(ic, 22, "currentColor", 1.8)}<span class="labelSm">${t(`${ns}:title`)}</span></div>`;
+    return `<div class="nav"><div class="bar-glass">
+      ${tab("home", "Home01Icon")}${tab("insights", "ChartLineData01Icon")}<div class="gap"></div>${tab("household", "UserGroupIcon")}${tab("settings", "Settings01Icon")}
+    </div><div class="add">${icon("Add01Icon", 24, "currentColor", 2)}</div></div>`;
+  };
+
+  const tone = (pct) => {
+    if (pct > 100) return { badge: "danger", bar: "danger" };
+    if (pct >= 90) return { badge: "warning", bar: "primary" };
+    if (pct >= 70) return { badge: "success", bar: "secondary" };
+    return { badge: "success", bar: "success" };
+  };
+
+  const categoryRow = (c) => {
+    const pct = Math.round((c.spent / c.cap) * 100);
+    const tn = tone(pct);
+    return `<div style="display:flex;flex-direction:column;gap:4px">
+      <div class="row" style="gap:12px"><div class="icircle sm neutral">${icon(c.icon, 18)}</div>
+        <div class="bodyLg" style="flex:1">${name(c)}</div>${badge(`${pct}%`, tn.badge, { style: "min-width:56px" })}</div>
+      <div style="display:flex;flex-direction:column;gap:4px"><div class="row between"><span class="bodyMd w700">${fmt(c.spent)}</span><span class="bodyMd outline-c">${fmt(c.cap)}</span></div>
+      ${bar(c.spent, c.cap, tn.bar)}</div></div>`;
+  };
+
+  const spendingRow = (s) => {
+    const c = DATA.categories[s.cat];
+    const day = s.day === 0 ? t("today") : t("yesterday");
+    return `<div class="row" style="gap:12px"><div class="icircle sm success">${icon(c.icon, 18)}</div>
+      <div class="row between" style="flex:1;gap:12px;align-items:stretch"><div style="flex:1;min-width:0"><div class="bodyLg w700">${name(c)}</div><div class="bodyMd muted">${name(s)}</div></div>
+      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end"><span class="bodyMd muted">${day}</span><span class="bodyMd w700">${fmt(-s.amount)}</span></div></div></div>`;
+  };
+
+  const totals = () => {
+    const cap = DATA.categories.reduce((s, c) => s + c.cap, 0);
+    const spent = DATA.categories.reduce((s, c) => s + c.spent, 0);
+    const income = DATA.incomes.reduce((s, i) => s + i.amount, 0);
+    return { cap, spent, income };
+  };
+
+  // ---------- screens ----------
+  const greeting = (signedIn) => (signedIn ? t("home:goodMoorningUser", { name: USER.name.split(" ")[0] }) : t("home:goodMoorning"));
+
+  const homeScreen = ({ signedIn }) => {
+    const { cap, spent, income } = totals();
+    const unplanned = income - cap - DATA.savingsGoal;
+    const daysLeft = 30 - TODAY.getDate();
+    const sorted = [...DATA.categories].sort((a, b) => b.spent / b.cap - a.spent / a.cap).slice(0, 5);
+    const bell = `<div style="position:relative"><div class="iconbtn">${icon("Notification01Icon", 24)}</div>${badge(2, "danger", { size: "sm", style: "position:absolute;top:-4px;right:-4px" })}</div>`;
+    return `
+      <div class="shell-header">${header(greeting(signedIn), "", bell)}</div>
+      <div class="shell-content">
+        <div class="card highlight" data-crop="budget" style="gap:16px">
+          <div class="row between">${badge(monthName(TODAY, { month: "long", year: "numeric" }).replace(/^./, (m) => m.toUpperCase()), "inverse", { icon: "Calendar03Icon", style: `border:1px solid ${rgba(C.inverseOnSecondary, 0.2)}` })}
+            ${badge(t("home:budgetCard.daysLeft", { count: daysLeft }), "inverse", { style: `border:1px solid ${rgba(C.inverseOnSecondary, 0.2)}` })}</div>
+          <div style="display:flex;flex-direction:column;gap:4px"><div class="labelCaps" style="color:var(--onPrimaryVariant);letter-spacing:1px">${t("home:budgetCard.remaining")}</div>
+            <div class="hero" style="font-size:40px;color:var(--inverseOnSecondary)">${fmt(cap - spent)}</div></div>
+          <div style="display:flex;flex-direction:column;gap:12px">${bar(spent, cap, "inverse")}
+            <div class="row between bodyMd" style="color:var(--onPrimaryVariant)"><span>${t("spent")} <b style="font-weight:700;color:var(--inverseOnSecondary)">${fmt(spent)}</b></span><span>${t("cap")} <b style="font-weight:700;color:var(--inverseOnSecondary)">${fmt(cap)}</b></span></div></div>
+        </div>
+        <div class="card secondary" data-crop="income" style="gap:12px">
+          <div class="row" style="gap:12px">${icon("Wallet01Icon", 22, C.primary)}<span class="bodyMd w600" style="flex:1">${t("budget.unassigned", { amount: fmt(unplanned) })}</span></div>
+          ${bar(cap + DATA.savingsGoal, income, "primary", "sm")}
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="row between"><span class="bodyMd muted">${t("budget.lines.spent")}</span><span class="bodyMd w600">${fmt(spent)}</span></div>
+            <div class="row between"><span class="bodyMd muted">${t("budget.lines.saved")}</span><span class="bodyMd w600">${fmt(DATA.saved)}</span></div></div>
+          <div class="sep"></div>
+          <div class="row between"><span class="bodyMd w600">${t("budget.lines.used")}</span><span class="bodyMd w700">${t("budget.lines.usedOfIncome", { used: fmt(spent + DATA.saved), income: fmt(income) })}</span></div>
+        </div>
+        <div class="card" data-crop="categories" style="gap:16px">
+          <div class="card-header"><span class="headlineSm t">${t("home:topCategories")}</span>${linkBtn(t("manage"))}</div>
+          <div style="display:flex;flex-direction:column;gap:16px">${sorted.map(categoryRow).join("")}</div>
+        </div>
+        <div class="card" data-crop="recent" style="gap:16px">
+          <div class="card-header"><span class="headlineSm t">${t("home:recentSpendings")}</span>${linkBtn(t("seeAll"))}</div>
+          <div style="display:flex;flex-direction:column;gap:16px">${DATA.spendings.map(spendingRow).join("")}</div>
+        </div>
+      </div>${nav("home")}`;
+  };
+
+  const segments = (opts, active) => `<div class="segments">${opts.map((o) => `<div class="seg ${o.value === active ? "on" : ""}">${o.icon ? icon(o.icon, 16) : ""}<span class="labelMd">${o.label}</span></div>`).join("")}</div>`;
+
+  const insightsHeader = () => header(t("insights:title"), t("insights:subtitle", { month: monthName(TODAY, { month: "long" }), year: 2026 }));
+  const typeSelector = (active) => segments([
+    { value: "spendings", label: t("insights:spendings"), icon: "Wallet02Icon" },
+    { value: "savings", label: t("insights:savings"), icon: "PiggyBankIcon" },
+  ], active);
+
+  const insightsScreen = () => {
+    const { cap, spent } = totals();
+    const elapsed = TODAY.getDate();
+    const remaining = 30 - elapsed + 1;
+    const burn = spent / elapsed;
+    const safe = Math.max(cap - spent, 0) / remaining;
+    const hot = burn > safe;
+    const weekdays = Array.from({ length: 7 }, (_, i) => new Intl.DateTimeFormat(lang, { weekday: "narrow" }).format(new Date(2026, 10, 16 + i)));
+    const heatBg = [C.surfaceContainerLow, rgba(C.success, 0.25), C.success, C.warning, C.danger];
+    const heatFg = [C.onSurfaceVariant, C.onSurface, C.onPrimary, C.onError, C.onError];
+    const cells = [...Array(6).fill(null), ...Array.from({ length: 30 }, (_, i) => i + 1)];
+    while (cells.length % 7) cells.push(null);
+    const weeks = [];
+    for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
+    const cell = (d) => {
+      if (d === null) return `<div style="flex:1"></div>`;
+      if (d > elapsed) return `<div class="heat-cell empty"><span class="labelLg">${d}</span></div>`;
+      const lv = DATA.heat[d - 1];
+      if (d === elapsed) return `<div class="heat-cell today"><span class="labelLg" style="background:${heatBg[lv]};color:${heatFg[lv]}">${d}</span></div>`;
+      return `<div class="heat-cell" style="background:${heatBg[lv]};color:${heatFg[lv]}"><span class="labelLg">${d}</span></div>`;
+    };
+    const runHottest = t("insights:calendar.insight.runHottest", { highlight: "⁣" }).split("⁣");
+    const tile = (label, value, accent) => `<div style="flex:1;display:flex;flex-direction:column;gap:4px;padding:16px;border-radius:16px;background:${rgba(C.inverseOnSecondary, 0.08)};border:1px solid ${rgba(C.inverseOnSecondary, 0.18)}">
+      <span class="bodyMd" style="color:var(--onPrimaryVariant)">${label}</span><span class="headlineSm" style="color:${accent ? C.onPrimaryAccent : C.inverseOnSecondary};white-space:nowrap">${value}<span class="bodySm" style="color:var(--onPrimaryVariant)"> / ${t("insights:trajectory.perDay")}</span></span></div>`;
+    const locked = ["week", "quarter", "year"];
+    return `
+      <div class="shell-header">${insightsHeader()}</div>
+      <div class="shell-content">
+        ${typeSelector("spendings")}
+        ${segments(["week", "month", "quarter", "year"].map((p) => ({ value: p, label: t(p), icon: locked.includes(p) ? "LockKeyholeIcon" : null })), "month")}
+        <div class="card highlight" data-crop="pace">
+          <div class="row between"><span class="labelCaps" style="color:var(--onPrimaryVariant);letter-spacing:1px">${t("insights:trajectory.title")}</span>${badge(hot ? t("insights:trajectory.runningHot") : t("insights:trajectory.onTrack"), hot ? "caution" : "inverse")}</div>
+          <div style="padding:8px 0"><span class="hero" style="color:var(--inverseOnSecondary)">${fmt(spent)}</span><span class="bodyLg" style="color:var(--onPrimaryVariant)"> / ${fmt(cap)}</span></div>
+          <div class="row" style="gap:12px">${tile(t("insights:trajectory.dailyBurn"), fmt(burn), false)}${tile(t("insights:trajectory.safePace"), fmt(safe), true)}</div>
+          <div class="row between">${badge(t("insights:trajectory.daysLeft", { count: 30 - elapsed }), "inverse", { style: `background:transparent;border:1px solid ${rgba(C.inverseOnSecondary, 0.3)}` })}<span class="labelLg" style="color:var(--inverseOnSecondary)">${t("insights:trajectory.consumed", { percent: ((spent / cap) * 100).toFixed(1) })}</span></div>
+          ${bar(spent, cap, "inverse")}
+        </div>
+        <div class="card" data-crop="heatmap">
+          <div style="display:flex;flex-direction:column;gap:4px"><span class="headlineMd">${t("insights:calendar.title")}</span>
+            <span class="bodyLg muted">${runHottest[0]}<span class="w600" style="color:var(--warning)">${t("insights:calendar.insight.weekendsHighlight")}</span>${runHottest[1] ?? ""}</span></div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div class="row" style="gap:8px">${weekdays.map((w) => `<span class="labelMd muted" style="flex:1;text-align:center">${w.toUpperCase()}</span>`).join("")}</div>
+            <div style="display:flex;flex-direction:column;gap:4px">${weeks.map((w) => `<div class="heat-row">${w.map(cell).join("")}</div>`).join("")}</div>
+            <div class="row between" style="align-items:flex-start;padding-top:4px;gap:12px"><span class="labelSm muted">${t("insights:calendar.hint", { period: t("day").toLowerCase() })}</span>
+              <span class="row" style="gap:4px"><span class="labelSm muted">${t("low")}</span>${heatBg.map((b) => `<i style="width:14px;height:14px;border-radius:4px;background:${b}"></i>`).join("")}<span class="labelSm muted">${t("high")}</span></span></div>
+          </div>
+        </div>
+      </div>${nav("insights")}`;
+  };
+
+  const savingsScreen = () => {
+    const total = DATA.vaults.reduce((s, v) => s + v.balance, 0);
+    const vaultRow = (v) => {
+      const pct = Math.round((v.balance / v.goal) * 100);
+      return `<div style="display:flex;flex-direction:column;gap:8px"><div class="row" style="gap:8px"><div class="icircle md neutral">${icon(v.icon, 20)}</div>
+        <span class="bodyLg w700" style="flex:1">${name(v)}</span>
+        <div style="text-align:right"><div class="bodyMd w700">${fmt(v.balance)}<span style="font-weight:400;color:var(--outline)"> / ${fmt(v.goal)}</span></div><div class="bodySm outline-c">${t("insights:savingsOverview.ofTarget", { percent: `${pct}%` })}</div></div></div>
+        ${bar(v.balance, v.goal, v.balance >= v.goal ? "success" : "secondary")}</div>`;
+    };
+    return `
+      <div class="shell-header">${insightsHeader()}</div>
+      <div class="shell-content">
+        ${typeSelector("savings")}
+        <div class="card highlight" data-crop="total" style="gap:16px">
+          <div style="display:flex;flex-direction:column;gap:4px"><span class="labelCaps" style="color:var(--onPrimaryVariant);letter-spacing:1px">${t("insights:savingsOverview.total")}</span>
+            <span class="hero" style="font-size:40px;color:var(--inverseOnSecondary)">${fmt(total)}</span>
+            <span class="bodyMd" style="color:var(--onPrimaryVariant)">${t("insights:savingsOverview.acrossVaults", { count: DATA.vaults.length })}</span></div>
+          <div class="row" style="gap:8px"><span class="btn sm" style="flex:1;background:var(--onPrimaryAccent);color:var(--onPrimaryFixed)">${icon("Add01Icon", 16)}${t("insights:savingsOverview.add")}</span>
+            <span class="btn sm" style="flex:1;color:var(--inverseOnSecondary);border:1px solid ${rgba(C.inverseOnSecondary, 0.35)}">${icon("MinusSignIcon", 16)}${t("insights:savingsOverview.withdraw")}</span></div>
+        </div>
+        <div class="card" data-crop="vaults">
+          <div class="row between" style="gap:12px"><span class="headlineMd">${t("insights:savingsOverview.byVault")}</span>${linkBtn(t("insights:savingsOverview.manage"))}</div>
+          <div style="display:flex;flex-direction:column;gap:16px">${DATA.vaults.map(vaultRow).join("")}</div>
+        </div>
+        <div class="card">
+          <div style="display:flex;flex-direction:column;gap:4px"><span class="headlineMd">${t("insights:savingsOverview.growthTitle")}</span>
+            <div class="row between"><span class="bodyMd muted">${t("insights:savingsOverview.growthSubtitle", { amount: fmt(DATA.savingsGoal) })}</span><span class="link">${icon("PencilEdit02Icon", 18)}${t("insights:savingsOverview.editGoal")}</span></div></div>
+          <div class="row" style="gap:12px;align-items:flex-end;height:150px;padding-top:8px">${[[8350, true], [10150, false], [11950, false], [13750, false]].map(([v, now], i) => `
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end">
+              <span class="labelMd" style="color:${now ? C.primary : C.onSurfaceVariant}">${fmt(v / 1000, { maximumFractionDigits: 1 }).replace(/(\d)([^\d]*)$/, "$1k$2").replace("k lei", " k lei")}</span>
+              <div style="width:100%;height:${(v / 13750) * 96}px;border-radius:10px;${now ? `background:linear-gradient(${C.secondaryFill}, ${C.primaryContainer})` : `border:1.5px dashed ${C.outline};background:${rgba(C.secondaryFill, 0.12)}`}"></div>
+              <span class="labelMd muted">${i === 0 ? t("insights:savingsOverview.now") : t("insights:savingsOverview.quarter", { quarter: ((3 + i) % 4) + 1 })}</span></div>`).join("")}</div>
+        </div>
+      </div>${nav("insights")}`;
+  };
+
+  const planScreen = () => {
+    const { cap, income } = totals();
+    const leftToBudget = income - DATA.savingsGoal;
+    const month = monthName(new Date(2026, 11, 1), { month: "long" });
+    const monthLabel = lang === "ro" ? month : month;
+    const rows = DATA.categories.map((c, i) => `<div class="seg-card ${i === 0 ? "first" : ""}"><div class="row" style="gap:12px">
+      <div class="row" style="gap:12px;flex:1"><div class="icircle md neutral">${icon(c.icon, 20)}</div><span class="bodyLg w700">${name(c)}</span></div>${badge(fmt(c.cap), "success")}</div></div>`).join("");
+    return `<div class="modal">
+      <div style="padding:${62 + 8}px 16px 12px;display:flex;flex-direction:column;gap:12px">
+        <div class="row" style="gap:12px"><span class="labelLg outline-c" style="min-width:48px;text-align:right">${t("plan:stepOf", { step: 3, total: 4 })}</span>
+          <span class="headlineSm" style="flex:1;text-align:center;color:var(--primary)">${t("plan:title", { month: monthLabel })}</span>
+          <div class="iconbtn">${icon("Cancel01Icon", 24)}</div></div>
+        <div class="row" style="gap:4px">${[1, 2, 3, 4].map((s) => `<i style="flex:1;height:5px;border-radius:999px;background:${s <= 3 ? C.primaryContainer : C.surfaceContainerHighest}"></i>`).join("")}</div>
+      </div>
+      <div style="flex:1;overflow:hidden;padding:16px;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:4px"><span class="headlineLg" style="color:var(--primary)">${t("plan:caps.title")}</span><span class="bodyMd muted">${t("plan:caps.subtitle")}</span></div>
+        <div class="card" data-crop="meter"><div class="row between" style="align-items:baseline;gap:12px"><span class="bodyLg">${t("plan:caps.left")}</span><span class="headlineMd" style="color:var(--primary)">${fmt(leftToBudget - cap)}</span></div>${bar(cap, leftToBudget, "primary")}</div>
+        <div>${rows}<div class="seg-card last"><span class="btn dashed">${t("plan:caps.add")}</span></div></div>
+      </div>
+      <div style="padding:12px 16px 34px;background:var(--surface);position:relative"><div class="row" style="gap:8px">
+        <span class="btn outline" style="flex:1">${t("plan:back")}</span><span class="btn primary" style="flex:2">${t("plan:continue")}</span></div></div>
+    </div>`;
+  };
+
+  const settingsScreen = ({ signedIn }) => {
+    const user = signedIn ? USER : { name: lang === "ro" ? "Invitat" : "Guest" };
+    const initials = user.name.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
+    const income = DATA.incomes.reduce((s, i) => s + i.amount, 0);
+    const userCard = `<div class="card" data-crop="user" style="flex-direction:row;align-items:center">
+      <div class="row" style="gap:12px;flex:1;min-width:0"><div class="avatar headlineMd">${initials}</div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px"><span class="headlineSm" style="color:var(--primary)">${user.name}</span>
+        <span style="color:var(--secondary);font:400 14px/1.3 Inter;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${signedIn ? user.email : t("settings:guestSubtitle")}</span></div></div>
+      <span class="btn sm primary">${icon(signedIn ? "Logout01Icon" : "Login03Icon", 16)}${signedIn ? t("settings:logOut") : t("settings:signIn")}</span></div>`;
+    const row = (ic, title, subtitle, { hl, div, trailing, info } = {}) => `<div class="settings-row ${div ? "div" : ""}">
+      <div class="tile ${hl ? "hl" : ""}">${icon(ic, 20)}</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:1px;min-width:0"><div class="row" style="gap:4px"><span class="bodyLg w700">${title}</span>${info ? icon("InformationCircleIcon", 18, C.outline) : ""}</div><span class="bodySm muted">${subtitle}</span></div>
+      ${trailing ?? icon("ArrowRight01Icon", 20, C.outline)}</div>`;
+    const entities = DATA.categories.length + DATA.vaults.length + 12;
+    return `
+      <div class="shell-header">${header(t("settings:title"), t("settings:subtitle"))}</div>
+      <div class="shell-content" style="gap:24px">
+        ${userCard}
+        <div class="card highlight" data-crop="premium" style="gap:16px">
+          <div class="row" style="gap:8px">${icon("CrownIcon", 18, C.onPrimaryVariant)}<span class="labelCaps" style="letter-spacing:1px;color:var(--onPrimaryVariant)">${t("settings:premium.eyebrow")}</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px"><span class="headlineMd" style="color:var(--inverseOnSecondary)">${t("settings:premium.title")}</span><span class="bodyMd" style="color:var(--onPrimaryVariant)">${t("settings:premium.description")}</span></div>
+          <span class="btn" style="border:1px solid var(--outline);color:var(--inverseOnSecondary)">${t("settings:premium.whatsComing")}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span class="labelCaps section-title">${t("settings:ledgerAndFinance.title")}</span>
+          <div class="card" style="gap:0;padding-top:4px;padding-bottom:4px">
+            ${row("Layers01Icon", t("settings:ledgerAndFinance.manageLedger"), t("settings:ledgerAndFinance.manageLedgerHint", { count: entities }), { hl: true, div: true })}
+            ${row("MoneyReceive01Icon", t("settings:ledgerAndFinance.monthlyIncome"), `${fmt(income)} · ${t("income:sources", { count: DATA.incomes.length })}`, { div: true })}
+            ${row("RepeatIcon", t("settings:ledgerAndFinance.separateFixedCosts"), t("settings:ledgerAndFinance.separateFixedCostsHint"), { trailing: '<span class="switch"></span>', info: true })}
+          </div></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span class="labelCaps section-title">${t("settings:interfaceAndAppearance.title")}</span><div class="card" style="gap:16px">
+            <div class="segments">${[["light", "Sun01Icon"], ["dark", "Moon02Icon"]].map(([m, ic], i) => `<div class="seg ${i === 0 ? "on" : ""}" style="padding:12px">${icon(ic, 18)}<span class="labelLg">${t(`theme.${m}`)}</span></div>`).join("")}</div>
+            <div class="card secondary" style="flex-direction:row;align-items:center;justify-content:space-between"><span class="labelCaps muted">${t("currency.label")}</span><span class="row bodyMd w600" style="gap:6px">${lang === "ro" ? "RON (lei)" : "EUR (€)"}${icon("ArrowDown01Icon", 16)}</span></div>
+          </div></div>
+      </div>${nav("settings")}`;
+  };
+
+  const SCREENS = { home: homeScreen, insights: insightsScreen, savings: savingsScreen, plan: planScreen, settings: settingsScreen };
+
+  window.setup = (data, fonts) => {
+    APP = data;
+    document.getElementById("fonts").textContent = Object.entries(fonts).map(([key, url]) => {
+      const [family, weight] = key.split("-");
+      return `@font-face { font-family: ${family}; font-weight: ${weight}; src: url("${url}"); }`;
+    }).join("\n");
+  };
+
+  window.render = ({ screen, lang: l = "en", theme = "light", signedIn = false }) => {
+    lang = l;
+    applyTheme(theme);
+    document.documentElement.style.colorScheme = theme;
+    document.getElementById("root").innerHTML = `<div class="screen">${glow()}${statusBar()}<div class="shell">${SCREENS[screen]({ signedIn })}</div></div>`;
+  };
+</script>
+</body>
+</html>

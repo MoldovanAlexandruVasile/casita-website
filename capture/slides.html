@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="phone.css" />
+<style id="fonts"></style>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1440px; height: 900px; overflow: hidden; }
+  body { font-family: Jakarta, sans-serif; background: #f2f5f0; color: #111814; position: relative; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(100px); }
+  .b1 { width: 760px; height: 640px; right: -120px; top: -200px; background: #aeeecb; opacity: .7; }
+  .b2 { width: 620px; height: 520px; left: -220px; bottom: -260px; background: #b7e4c7; opacity: .55; }
+  .b3 { width: 380px; height: 380px; left: 520px; top: 80px; background: #f2c14b; opacity: .14; }
+  body.dark { background: #08100d; color: #e2e8e4; }
+  body.dark .b1 { background: #245c44; opacity: .55; }
+  body.dark .b2 { background: #1f4a38; opacity: .5; }
+  body.dark .b3 { opacity: .06; }
+
+  .copy { position: absolute; left: 110px; top: 0; bottom: 0; width: 560px; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+  .eyebrow { display: inline-flex; align-self: flex-start; gap: 10px; align-items: center; padding: 8px 16px; border-radius: 999px; background: rgba(27, 67, 50, .08); color: #1b4332; font: 700 17px/1 Inter; }
+  body.dark .eyebrow { background: rgba(193, 236, 212, .1); color: #c1ecd4; }
+  .eyebrow img { width: 26px; height: 26px; border-radius: 7px; }
+  h1 { font-size: 68px; line-height: 1.04; font-weight: 800; letter-spacing: -0.035em; }
+  h1 .accent { background: linear-gradient(90deg, #1b4332, #2d6a4f 55%, #52b788); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  body.dark h1 .accent { background: linear-gradient(90deg, #c1ecd4, #52b788); -webkit-background-clip: text; background-clip: text; }
+  .sub { font: 500 24px/1.45 Inter; color: #414844; max-width: 30em; }
+  body.dark .sub { color: #a3b2ab; }
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="copy"><span class="eyebrow"><img src="../public/icon.png" alt="" />Casita</span><h1 id="h1"></h1><p class="sub" id="sub"></p></div>
+<div id="stage"></div>
+<script>
+  // Each slide: a two-line headline (the second in green), a subtitle, one or
+  // two phones with real screens (raw/<lang>/<screen>.png, from screens.mjs)
+  // and an optional card lifted out of the front phone's screen.
+  // slides.html?lang=ro: the Romanian texts over the Romanian screens.
+  const LANG = new URLSearchParams(location.search).get("lang") ?? "en";
+  const RAW = `raw/${LANG}`;
+
+  const SLIDES = [
+    { name: "01-plan", screens: ["plan"], pop: "plan.meter",
+      en: ["Plan your month", "in minutes", "Add your income, set aside savings, then give every euro a job."],
+      ro: ["Planifică luna", "în câteva minute", "Adaugă veniturile, pune deoparte economiile și dă un rost fiecărui leu."] },
+    { name: "02-whats-left", screens: ["home"], pop: "home.budget",
+      en: ["Always know", "what's left", "Your remaining budget, your caps and today's spendings, at a glance."],
+      ro: ["Știi mereu", "cât mai ai", "Bugetul rămas, plafoanele și cheltuielile de azi, dintr-o privire."] },
+    { name: "03-safe-pace", screens: ["insights"], pop: "insights.pace",
+      en: ["Spend at", "a safe pace", "See your daily pace against a safe one, and which days cost the most."],
+      ro: ["Cheltuiește", "într-un ritm sigur", "Vezi ritmul zilnic față de unul sigur și în ce zile cheltuiești cel mai mult."] },
+    { name: "04-savings", screens: ["savings"], pop: "savings.vaults",
+      en: ["Watch your", "savings grow", "A vault for every goal, from an emergency fund to next summer's trip."],
+      ro: ["Vezi cum cresc", "economiile", "Un seif pentru fiecare țintă, de la fondul de urgență la vacanța de vară."] },
+    { name: "05-guest-or-account", screens: ["settings", "settings-guest"], pop: "settings.user",
+      en: ["Start as a guest,", "sync when you sign in", "Everything stays on your phone until you sign in with Google, Apple or email."],
+      ro: ["Începe ca invitat,", "sincronizează-te oricând", "Totul rămâne pe telefon până te conectezi cu Google, Apple sau email."] },
+    { name: "06-dark-mode", dark: true, screens: ["home-dark", "insights-dark"],
+      en: ["Easy on the eyes,", "day or night", "Light or dark, following your phone."],
+      ro: ["Ușor pentru ochi,", "zi și noapte", "Temă luminoasă sau întunecată, după telefonul tău."] },
+  ];
+
+  // The front phone: screen width 340px, its top-left at (FRONT.x, FRONT.y).
+  const FRONT = { w: 340, x: 870, y: 76 };
+  const BACK = { w: 290, x: 1060, y: 150 };
+  const SCALE = FRONT.w / 1206; // raw px → page px
+  const BEZEL = FRONT.w * 0.0375;
+
+  const phone = ({ w, x, y }, screen, z, extra = "") =>
+    `<div class="phone" style="--w:${w}px;left:${x}px;top:${y}px;z-index:${z};${extra}"><div class="glass"><img src="${RAW}/${screen}.png"><div class="island"></div></div></div>`;
+
+  window.render = (index, crops) => {
+    const s = SLIDES[index];
+    const [l1, l2, sub] = s[LANG];
+    document.body.classList.toggle("dark", !!s.dark);
+    document.getElementById("h1").innerHTML = `${l1}<br><span class="accent">${l2}</span>`;
+    document.getElementById("sub").textContent = sub;
+    const stage = document.getElementById("stage");
+    stage.innerHTML =
+      (s.screens[1] ? phone(BACK, s.screens[1], 1, "transform:rotate(6deg);opacity:.98") : "") +
+      phone(s.screens[1] ? { ...FRONT, x: FRONT.x - 70 } : FRONT, s.screens[0], 2);
+    if (s.pop) {
+      const c = crops[s.pop];
+      const lift = 1.16;
+      const k = SCALE * lift;
+      const fx = (s.screens[1] ? FRONT.x - 70 : FRONT.x) + BEZEL;
+      const fy = FRONT.y + BEZEL;
+      const cx = fx + (c.x + c.w / 2) * SCALE;
+      const cy = fy + (c.y + c.h / 2) * SCALE;
+      const el = document.createElement("div");
+      el.className = "pop";
+      Object.assign(el.style, {
+        zIndex: 3,
+        left: `${cx - (c.w * k) / 2}px`, top: `${cy - (c.h * k) / 2}px`,
+        width: `${c.w * k}px`, height: `${c.h * k}px`,
+        borderRadius: `${c.radius * k}px`,
+        backgroundImage: `url(${RAW}/${s.pop.split(".")[0]}.png)`,
+        backgroundSize: `${1206 * k}px ${2622 * k}px`,
+        backgroundPosition: `${-c.x * k}px ${-c.y * k}px`,
+      });
+      stage.appendChild(el);
+    }
+    return s.name;
+  };
+  window.SLIDE_COUNT = SLIDES.length;
+  window.setFonts = (fonts) => {
+    document.getElementById("fonts").textContent = Object.entries(fonts).map(([key, url]) => {
+      const [family, weight] = key.split("-");
+      return `@font-face { font-family: ${family}; font-weight: ${weight}; src: url("${url}"); }`;
+    }).join("\n");
+  };
+</script>
+</body>
+</html>

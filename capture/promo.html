@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="phone.css" />
+<style id="fonts"></style>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; }
+  body { font-family: Jakarta, sans-serif; background: #f2f5f0; color: #111814; position: relative; }
+  .bg, .bg-dark { position: absolute; inset: 0; overflow: hidden; }
+  .bg-dark { background: #08100d; opacity: 0; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(120px); }
+  .b1 { width: 980px; height: 820px; right: -160px; top: -260px; background: #aeeecb; opacity: .7; }
+  .b2 { width: 820px; height: 680px; left: -280px; bottom: -320px; background: #b7e4c7; opacity: .55; }
+  .b3 { width: 480px; height: 480px; left: 700px; top: 120px; background: #f2c14b; opacity: .14; }
+  .bg-dark .b1 { background: #245c44; opacity: .55; } .bg-dark .b2 { background: #1f4a38; opacity: .5; } .bg-dark .b3 { opacity: .05; }
+
+  .layer { position: absolute; inset: 0; opacity: 0; }
+  .copy { position: absolute; left: 160px; top: 0; bottom: 0; width: 820px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
+  .step { font: 700 22px/1 Inter; color: #2d6a4f; letter-spacing: .14em; text-transform: uppercase; }
+  h1 { font-size: 92px; line-height: 1.02; font-weight: 800; letter-spacing: -0.035em; }
+  h1 .accent { background: linear-gradient(90deg, #1b4332, #2d6a4f 55%, #52b788); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { font: 500 30px/1.45 Inter; color: #414844; max-width: 26em; }
+  .dark-text h1, .dark-text { color: #e2e8e4; }
+  .dark-text h1 .accent { background: linear-gradient(90deg, #c1ecd4, #52b788); -webkit-background-clip: text; background-clip: text; }
+  .dark-text .sub { color: #a3b2ab; } .dark-text .step { color: #95d4b3; }
+
+  .center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 26px; }
+  .center .icon { width: 200px; height: 200px; border-radius: 46px; box-shadow: 0 40px 80px -30px rgba(1, 45, 29, .55); }
+  .center .name { font-size: 120px; font-weight: 800; letter-spacing: -0.04em; color: #1b4332; line-height: 1; }
+  .center .tag { font: 500 40px/1.3 Inter; color: #414844; }
+  .center .tag b { color: #2d6a4f; font-weight: 700; }
+  .soon { display: inline-flex; align-items: center; gap: 14px; padding: 16px 30px; border-radius: 999px; background: #d8f3e4; color: #1f5a40; font: 700 28px/1 Inter; }
+  .soon i { width: 14px; height: 14px; border-radius: 50%; background: #52b788; box-shadow: 0 0 0 8px rgba(82, 183, 136, .25); }
+  .stores { display: flex; gap: 22px; margin-top: 8px; }
+  .store { display: flex; align-items: center; gap: 16px; padding: 16px 30px; border-radius: 22px; border: 2px dashed #c1c8c2; background: rgba(255, 255, 255, .6); color: #414844; text-align: left; }
+  .store small { display: block; font: 700 15px/1.2 Inter; letter-spacing: .08em; text-transform: uppercase; }
+  .store span { font: 700 30px/1.15 Inter; color: #111814; }
+</style>
+</head>
+<body>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="bg-dark"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div id="stage"></div>
+<script>
+  // A ~31 s promo, drawn frame by frame: window.render(seconds). The phones
+  // show the real screens (raw/<lang>/*.png from screens.mjs); a card lifts
+  // out of each one, like the showcase slides. promo.html?lang=ro: Romanian.
+  const LANG = new URLSearchParams(location.search).get("lang") ?? "en";
+  const RAW = `raw/${LANG}`;
+  const TEXT = {
+    en: {
+      tagline: "Your household budget, <b>finally calm.</b>",
+      soon: "Coming soon to iPhone and Android", short: "Coming soon",
+      scenes: [
+        ["Plan", "Plan your month", "in minutes", "Add your income, set aside savings, give every euro a job."],
+        ["Track", "Always know", "what's left", "Your remaining budget and your caps, at a glance."],
+        ["Pace", "Spend at", "a safe pace", "Your daily pace against a safe one, day by day."],
+        ["Save", "Watch your", "savings grow", "A vault for every goal."],
+        ["Sync", "Start as a guest,", "sign in to sync", "Your data stays on your phone until you sign in."],
+        ["Dark mode", "Easy on the eyes,", "day or night", "Light or dark, following your phone."],
+      ],
+    },
+    ro: {
+      tagline: "Bugetul casei tale, <b>în sfârșit liniștit.</b>",
+      soon: "În curând pe iPhone și Android", short: "În curând",
+      scenes: [
+        ["Planifică", "Planifică luna", "în câteva minute", "Adaugă veniturile, pune deoparte economiile, dă un rost fiecărui leu."],
+        ["Urmărește", "Știi mereu", "cât mai ai", "Bugetul rămas și plafoanele, dintr-o privire."],
+        ["Ritm", "Cheltuiește", "într-un ritm sigur", "Ritmul zilnic față de unul sigur, zi de zi."],
+        ["Economisește", "Vezi cum cresc", "economiile", "Un seif pentru fiecare țintă."],
+        ["Sincronizare", "Începe ca invitat,", "conectează-te oricând", "Datele rămân pe telefon până te conectezi."],
+        ["Mod întunecat", "Ușor pentru ochi,", "zi și noapte", "Temă luminoasă sau întunecată, după telefon."],
+      ],
+    },
+  }[LANG];
+
+  // Scenes: [start, end] in seconds; phones: [screen, ...]; pop: crop key.
+  const SCENES = [
+    { kind: "intro", from: 0, to: 3.4 },
+    { from: 3.0, to: 7.6, phones: ["plan"], pop: "plan.meter" },
+    { from: 7.2, to: 11.8, phones: ["home"], pop: "home.budget" },
+    { from: 11.4, to: 16.0, phones: ["insights"], pop: "insights.pace" },
+    { from: 15.6, to: 20.2, phones: ["savings"], pop: "savings.vaults" },
+    { from: 19.8, to: 24.4, phones: ["settings", "settings-guest"], pop: "settings.user" },
+    { from: 24.0, to: 28.0, phones: ["home-dark", "insights-dark"], dark: true },
+    { kind: "end", from: 27.6, to: 31.5 },
+  ];
+  window.DURATION = 31.5;
+
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ease = (x) => 1 - Math.pow(1 - clamp(x), 3);
+  const easeInOut = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+
+  const PHONE_W = 410; // screen width in px
+  const FRONT = { x: 1220, y: (1080 - (PHONE_W * 2622) / 1206 - PHONE_W * 0.075) / 2 };
+  const SCALE = PHONE_W / 1206;
+  const BEZEL = PHONE_W * 0.0375;
+
+  const stage = document.getElementById("stage");
+  const layers = [];
+
+  window.setup = (crops, fonts) => {
+    document.getElementById("fonts").textContent = Object.entries(fonts).map(([key, url]) => {
+      const [family, weight] = key.split("-");
+      return `@font-face { font-family: ${family}; font-weight: ${weight}; src: url("${url}"); }`;
+    }).join("\n");
+    let sceneIndex = 0;
+    for (const s of SCENES) {
+      const el = document.createElement("div");
+      el.className = "layer";
+      if (s.kind === "intro") {
+        el.innerHTML = `<div class="center"><img class="icon" src="../public/icon.png"><div class="name">Casita</div><div class="tag">${TEXT.tagline}</div></div>`;
+      } else if (s.kind === "end") {
+        el.innerHTML = `<div class="center"><img class="icon" src="../public/icon.png"><div class="name">Casita</div>
+          <div class="soon"><i></i>${TEXT.soon}</div>
+          <div class="stores">${["App Store", "Google Play"].map((st) => `<div class="store"><div><small>${TEXT.short}</small><span>${st}</span></div></div>`).join("")}</div></div>`;
+      } else {
+        const [step, l1, l2, sub] = TEXT.scenes[sceneIndex++];
+        const two = s.phones.length > 1;
+        const front = { x: two ? FRONT.x - 90 : FRONT.x, y: FRONT.y };
+        const phone = (screen, pos, cls, extra = "") =>
+          `<div class="phone ${cls}" style="--w:${PHONE_W}px;left:${pos.x}px;top:${pos.y}px;${extra}"><div class="glass"><img src="${RAW}/${screen}.png"><div class="island"></div></div></div>`;
+        el.innerHTML = `<div class="copy ${s.dark ? "dark-text" : ""}"><span class="step">${step}</span><h1>${l1}<br><span class="accent">${l2}</span></h1><p class="sub">${sub}</p></div>
+          ${two ? phone(s.phones[1], { x: front.x + 250, y: front.y + 70 }, "back", "z-index:1") : ""}
+          ${phone(s.phones[0], front, "front", "z-index:2")}`;
+        if (s.pop) {
+          const c = crops[s.pop];
+          const pop = document.createElement("div");
+          pop.className = "pop";
+          const screen = s.phones.find((p) => s.pop.startsWith(p.split("-")[0])) ?? s.phones[0];
+          const k = SCALE;
+          Object.assign(pop.style, {
+            zIndex: 3, left: `${front.x + BEZEL + c.x * k}px`, top: `${front.y + BEZEL + c.y * k}px`,
+            width: `${c.w * k}px`, height: `${c.h * k}px`, borderRadius: `${c.radius * k}px`,
+            backgroundImage: `url(${RAW}/${s.pop.split(".")[0]}.png)`, backgroundSize: `${1206 * k}px ${2622 * k}px`,
+            backgroundPosition: `${-c.x * k}px ${-c.y * k}px`, transformOrigin: "50% 50%",
+          });
+          el.appendChild(pop);
+        }
+      }
+      stage.appendChild(el);
+      layers.push(el);
+    }
+  };
+
+  window.render = (t) => {
+    let darkness = 0;
+    SCENES.forEach((s, i) => {
+      const el = layers[i];
+      const len = s.to - s.from;
+      const local = t - s.from;
+      const fadeIn = s.from === 0 ? 1 : ease(local / 0.5);
+      const fadeOut = s.to >= window.DURATION ? 1 : 1 - easeInOut((local - (len - 0.45)) / 0.45);
+      const visible = local >= 0 && local <= len;
+      el.style.opacity = visible ? Math.min(fadeIn, fadeOut) : 0;
+      if (!visible) return;
+      if (s.dark) darkness = Math.max(darkness, Math.min(ease(local / 0.6), fadeOut));
+
+      if (s.kind) {
+        const icon = el.querySelector(".icon");
+        const k = 0.86 + 0.14 * ease(local / 0.8);
+        icon.style.transform = `scale(${k}) translateY(${(1 - ease(local / 0.8)) * 20}px)`;
+        el.querySelectorAll(".name, .tag, .soon, .stores").forEach((n, j) => {
+          const p = ease((local - 0.25 - j * 0.18) / 0.6);
+          n.style.opacity = p;
+          n.style.transform = `translateY(${(1 - p) * 24}px)`;
+        });
+        return;
+      }
+      const copy = el.querySelector(".copy");
+      const pc = ease((local - 0.1) / 0.7);
+      copy.style.opacity = pc;
+      copy.style.transform = `translateX(${(1 - pc) * -50}px)`;
+      const front = el.querySelector(".front");
+      const pf = ease(local / 0.8);
+      // A slow drift up while on screen.
+      front.style.transform = `translateY(${(1 - pf) * 160 - local * 6}px)`;
+      const back = el.querySelector(".back");
+      if (back) {
+        const pb = ease((local - 0.35) / 0.8);
+        back.style.opacity = pb;
+        back.style.transform = `translateY(${(1 - pb) * 160 - local * 4}px) rotate(${6 * pb}deg)`;
+      }
+      const pop = el.querySelector(".pop");
+      if (pop) {
+        const pp = easeInOut((local - 1.3) / 0.7);
+        pop.style.transform = `translateY(${(1 - pf) * 160 - local * 6}px) scale(${1 + 0.16 * pp})`;
+        pop.style.boxShadow = `0 ${40 * pp}px ${80 * pp}px -24px rgba(1,45,29,${0.5 * pp}), 0 0 0 1px rgba(1,45,29,${0.06 * pp})`;
+        pop.style.opacity = local > 1.2 ? 1 : 0;
+      }
+    });
+    document.querySelector(".bg-dark").style.opacity = darkness;
+  };
+</script>
+</body>
+</html>

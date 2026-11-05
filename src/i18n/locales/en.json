@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "title": "Casita · A calm household budget, coming soon to iPhone and Android"
+  },
+  "nav": {
+    "screens": "Screens",
+    "features": "Features",
+    "how": "How it works",
+    "pro": "Casita Pro",
+    "faq": "FAQ",
+    "language": "Language"
+  },
+  "hero": {
+    "pill": "Coming soon to iPhone and Android",
+    "title": "Your household budget,",
+    "titleAccent": "finally calm.",
+    "lead": "Plan each month in a few steps, give every euro a job, and watch your savings grow. Casita shows what's left to spend, warns you before a category runs over, and keeps the whole picture in one place.",
+    "appAlt": "Casita's home screen: the remaining budget for November, the income card, top categories with their caps and recent spendings"
+  },
+  "video": {
+    "label": "Casita in 30 seconds"
+  },
+  "screens": {
+    "title": "A closer look",
+    "lead": "Real screens from the app, with demo data.",
+    "region": "Screenshots",
+    "previous": "Previous screenshot",
+    "next": "Next screenshot",
+    "show": "Show screenshot {{n}}",
+    "slideOf": "{{n}} of {{total}}",
+    "alt": {
+      "01-plan": "Plan your month in minutes: the monthly plan's category caps step, with what's left to assign",
+      "02-whats-left": "Always know what's left: the home screen with the remaining budget, income and top categories",
+      "03-safe-pace": "Spend at a safe pace: insights with the daily pace against a safe pace and the spending calendar",
+      "04-savings": "Watch your savings grow: total savings and a vault for every goal",
+      "05-guest-or-account": "Start as a guest, sync when you sign in: settings signed in and in guest mode",
+      "06-dark-mode": "Easy on the eyes, day or night: the home and insights screens in dark mode"
+    }
+  },
+  "features": {
+    "title": "Everything a monthly budget needs",
+    "lead": "Built for households that want to know where the money goes, without spreadsheets.",
+    "items": [
+      {
+        "title": "Plan the month in minutes",
+        "text": "Add what's coming in, set aside savings, then spread the rest across categories. A short guided plan, once a month."
+      },
+      {
+        "title": "Caps for every category",
+        "text": "Give each category a monthly cap until all your income has a job. Logging a spending takes a few taps."
+      },
+      {
+        "title": "Savings vaults",
+        "text": "Keep an emergency fund, a trip or a new car in its own vault, with a target and a bar that fills up as you save."
+      },
+      {
+        "title": "Insights that make sense",
+        "text": "See your daily pace against a safe pace, which days you spend the most, and how this month compares to the last."
+      },
+      {
+        "title": "Gentle reminders",
+        "text": "A heads-up when a category is close to its cap or goes over, and a nudge to plan the next month."
+      },
+      {
+        "title": "Private and locked",
+        "text": "Start as a guest with everything on your phone, or sign in to keep it in sync. Lock the app with Face ID or your fingerprint."
+      }
+    ]
+  },
+  "how": {
+    "title": "How a month works",
+    "lead": "Three steps, the same every month.",
+    "steps": [
+      {
+        "title": "Plan",
+        "text": "Enter your take-home income, choose how much goes to your vaults, and set a cap for each category."
+      },
+      {
+        "title": "Spend",
+        "text": "Log spendings as they happen. Casita keeps the amount left to spend up to date, and tells you if you're running hot."
+      },
+      {
+        "title": "Look back",
+        "text": "At month's end, see where it went, what you saved, and plan the next one with what you learned."
+      }
+    ]
+  },
+  "pro": {
+    "title": "Casita Pro, on the way",
+    "lead": "Casita is free to start. Later, Pro adds more for the whole household.",
+    "later": "Later",
+    "items": [
+      {
+        "title": "Household sharing",
+        "text": "Several members, one synchronized budget."
+      },
+      {
+        "title": "Unlimited vaults and categories",
+        "text": "As many as your household needs."
+      },
+      {
+        "title": "Bank sync",
+        "text": "Transactions that import and sort themselves."
+      },
+      {
+        "title": "Child accounts",
+        "text": "Managed profiles and allowance tracking for kids."
+      },
+      {
+        "title": "Deeper insights",
+        "text": "Trends by week, quarter and year, with forecasts."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions",
+    "items": [
+      {
+        "q": "When will Casita be available?",
+        "a": "Soon. Casita is in its final round of testing. It will come out on the App Store and Google Play, and this page will have the links on launch day."
+      },
+      {
+        "q": "Will it be free?",
+        "a": "Yes, Casita is free to start, with everything you need for a monthly budget. Casita Pro, with more for households, comes later and is optional."
+      },
+      {
+        "q": "Do I need an account?",
+        "a": "No. You can use Casita as a guest and keep everything on your phone. If you sign in later with Google, Apple or email, Casita offers to move your data to your account."
+      },
+      {
+        "q": "Does Casita connect to my bank?",
+        "a": "Not at launch. You enter your income and spendings yourself, so Casita never sees your bank login. Bank sync is planned for Casita Pro."
+      },
+      {
+        "q": "Which languages and currencies?",
+        "a": "English and Romanian, with the currency of your choice."
+      }
+    ]
+  },
+  "soon": {
+    "badge": "Coming soon",
+    "short": "Coming soon",
+    "storeLabel": "Coming soon to {{store}}",
+    "title": "Casita is almost here",
+    "text": "We're putting the finishing touches on it. Casita launches soon on the App Store and Google Play; check back here for the links."
+  },
+  "footer": {
+    "note": "Coming soon to iPhone and Android."
+  }
+}

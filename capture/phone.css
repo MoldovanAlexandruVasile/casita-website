@@ -1,0 +1,41 @@
+/* An iPhone 17 Pro around a 1206×2622 screen image. Set --w (the screen's
+   width in px); everything else scales with it. Shared by slides and promo. */
+.phone {
+  --w: 330px;
+  position: absolute;
+  width: var(--w);
+  aspect-ratio: 1206 / 2622;
+  height: auto;
+  padding: calc(var(--w) * 0.0375);
+  border-radius: calc(var(--w) * 0.165);
+  background: linear-gradient(145deg, #3b4a44, #121a17 40%, #0a0f0d);
+  box-shadow:
+    0 0 0 calc(var(--w) * 0.006) #6f7d77 inset,
+    0 calc(var(--w) * 0.12) calc(var(--w) * 0.24) calc(var(--w) * -0.06) rgba(1, 45, 29, 0.45),
+    0 calc(var(--w) * 0.03) calc(var(--w) * 0.08) rgba(1, 45, 29, 0.25);
+  box-sizing: content-box;
+}
+.phone .glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--w) * 0.13);
+  overflow: hidden;
+  background: #000;
+}
+.phone img { display: block; width: 100%; height: 100%; }
+.phone .island {
+  position: absolute;
+  top: calc(var(--w) * 0.028);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--w) * 0.31);
+  height: calc(var(--w) * 0.09);
+  border-radius: 999px;
+  background: #000;
+}
+.pop {
+  position: absolute;
+  background-repeat: no-repeat;
+  box-shadow: 0 40px 80px -24px rgba(1, 45, 29, 0.5), 0 0 0 1px rgba(1, 45, 29, 0.06);
+}

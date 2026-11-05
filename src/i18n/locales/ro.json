@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "title": "Casita · Bugetul casei, liniștit. În curând pe iPhone și Android"
+  },
+  "nav": {
+    "screens": "Ecrane",
+    "features": "Funcții",
+    "how": "Cum funcționează",
+    "pro": "Casita Pro",
+    "faq": "Întrebări",
+    "language": "Limba"
+  },
+  "hero": {
+    "pill": "În curând pe iPhone și Android",
+    "title": "Bugetul casei tale,",
+    "titleAccent": "în sfârșit liniștit.",
+    "lead": "Planifică fiecare lună în câțiva pași, dă un rost fiecărui leu și vezi cum cresc economiile. Casita îți arată cât mai ai de cheltuit, te avertizează înainte ca o categorie să-și depășească limita și ține totul într-un singur loc.",
+    "appAlt": "Ecranul principal Casita: bugetul rămas pe noiembrie, cardul veniturilor, categoriile de top cu plafoanele lor și cheltuielile recente"
+  },
+  "video": {
+    "label": "Casita în 30 de secunde"
+  },
+  "screens": {
+    "title": "Aruncă o privire",
+    "lead": "Ecrane reale din aplicație, cu date demonstrative.",
+    "region": "Capturi de ecran",
+    "previous": "Captura anterioară",
+    "next": "Captura următoare",
+    "show": "Arată captura {{n}}",
+    "slideOf": "{{n}} din {{total}}",
+    "alt": {
+      "01-plan": "Planifică luna în câteva minute: pasul cu plafoanele pe categorii și suma rămasă de alocat",
+      "02-whats-left": "Știi mereu cât mai ai: ecranul principal cu bugetul rămas, veniturile și categoriile de top",
+      "03-safe-pace": "Cheltuiește într-un ritm sigur: analizele cu ritmul zilnic față de unul sigur și calendarul cheltuielilor",
+      "04-savings": "Vezi cum cresc economiile: economiile totale și câte un seif pentru fiecare țintă",
+      "05-guest-or-account": "Începe ca invitat, sincronizează-te oricând: setările cu cont și în modul invitat",
+      "06-dark-mode": "Ușor pentru ochi, zi și noapte: ecranele principal și de analize în modul întunecat"
+    }
+  },
+  "features": {
+    "title": "Tot ce îi trebuie unui buget lunar",
+    "lead": "Pentru gospodăriile care vor să știe unde se duc banii, fără tabele.",
+    "items": [
+      {
+        "title": "Luna planificată în câteva minute",
+        "text": "Adaugă veniturile, pune deoparte pentru economii, apoi împarte restul pe categorii. Un plan scurt, ghidat, o dată pe lună."
+      },
+      {
+        "title": "Plafon pentru fiecare categorie",
+        "text": "Dă fiecărei categorii un plafon lunar până când tot venitul are un rost. Notezi o cheltuială în câteva atingeri."
+      },
+      {
+        "title": "Seifuri de economii",
+        "text": "Ține fondul de urgență, vacanța sau mașina nouă fiecare în seiful lui, cu o țintă și o bară care se umple pe măsură ce economisești."
+      },
+      {
+        "title": "Analize care au sens",
+        "text": "Vezi ritmul zilnic față de un ritm sigur, în ce zile cheltuiești cel mai mult și cum arată luna aceasta față de cea trecută."
+      },
+      {
+        "title": "Mementouri discrete",
+        "text": "Un semnal când o categorie se apropie de limită sau o depășește și o amintire să planifici luna următoare."
+      },
+      {
+        "title": "Privat și protejat",
+        "text": "Începe ca invitat, cu totul pe telefon, sau conectează-te ca să fie sincronizat. Blochează aplicația cu Face ID sau amprenta."
+      }
+    ]
+  },
+  "how": {
+    "title": "Cum arată o lună",
+    "lead": "Trei pași, la fel în fiecare lună.",
+    "steps": [
+      {
+        "title": "Planifici",
+        "text": "Introduci venitul net, alegi cât merge în seifuri și stabilești un plafon pentru fiecare categorie."
+      },
+      {
+        "title": "Cheltuiești",
+        "text": "Notezi cheltuielile pe loc. Casita ține la zi suma rămasă și îți spune dacă ritmul e prea alert."
+      },
+      {
+        "title": "Tragi linie",
+        "text": "La final de lună vezi unde s-au dus banii, cât ai economisit și planifici următoarea cu ce ai învățat."
+      }
+    ]
+  },
+  "pro": {
+    "title": "Casita Pro, pe drum",
+    "lead": "Casita e gratuită la început. Mai târziu, Pro aduce mai mult pentru toată familia.",
+    "later": "Mai târziu",
+    "items": [
+      {
+        "title": "Buget comun pentru gospodărie",
+        "text": "Mai mulți membri, un singur buget sincronizat."
+      },
+      {
+        "title": "Seifuri și categorii nelimitate",
+        "text": "Câte îi trebuie gospodăriei tale."
+      },
+      {
+        "title": "Sincronizare bancară",
+        "text": "Tranzacțiile se importă și se sortează singure."
+      },
+      {
+        "title": "Conturi pentru copii",
+        "text": "Profiluri gestionate și urmărirea alocației pentru copii."
+      },
+      {
+        "title": "Analize detaliate",
+        "text": "Tendințe pe săptămână, trimestru și an, cu prognoze."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Întrebări",
+    "items": [
+      {
+        "q": "Când va fi disponibilă Casita?",
+        "a": "În curând. Casita e în ultima etapă de testare. Va apărea în App Store și Google Play, iar pagina aceasta va avea linkurile din ziua lansării."
+      },
+      {
+        "q": "Va fi gratuită?",
+        "a": "Da, Casita e gratuită la început, cu tot ce îți trebuie pentru un buget lunar. Casita Pro, cu mai multe pentru gospodărie, vine mai târziu și e opțional."
+      },
+      {
+        "q": "Am nevoie de cont?",
+        "a": "Nu. Poți folosi Casita ca invitat, cu totul pe telefon. Dacă te conectezi mai târziu cu Google, Apple sau email, Casita se oferă să-ți mute datele în cont."
+      },
+      {
+        "q": "Se conectează Casita la banca mea?",
+        "a": "Nu la lansare. Introduci singur veniturile și cheltuielile, așa că Casita nu vede niciodată datele de acces la bancă. Sincronizarea bancară e planificată pentru Casita Pro."
+      },
+      {
+        "q": "În ce limbi și monede?",
+        "a": "Română și engleză, în moneda pe care o alegi."
+      }
+    ]
+  },
+  "soon": {
+    "badge": "În curând",
+    "short": "În curând",
+    "storeLabel": "În curând în {{store}}",
+    "title": "Casita e aproape gata",
+    "text": "Îi dăm ultimele retușuri. Casita se lansează în curând în App Store și Google Play; revino aici pentru linkuri."
+  },
+  "footer": {
+    "note": "În curând pe iPhone și Android."
+  }
+}
