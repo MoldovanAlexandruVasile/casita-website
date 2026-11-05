@@ -24,8 +24,8 @@ Source: **GitHub Actions**.
 
 - Replace the "Coming soon" placeholders (`components/StoreSoon*.tsx`, the
   header's `SoonBadge`) with App Store / Google Play links.
-- Add the Privacy policy and Terms pages once the app's legal texts are final
-  (they still have placeholders in `casita-react-native/src/i18n/locales/*/legal.json`).
+- Fill in the placeholders in the app's legal texts (company name, CUI, address,
+  emails, hosting provider), remove the draft notice there, then `npm run sync:legal`.
 - Optionally swap the drawn screens for real device screenshots.
 
 ## Languages
@@ -67,3 +67,11 @@ Romanian: the same with `ro` (into `public/media/ro/`). The hero's phone shows
 seconds instead, for checking a change. The video is encoded with AVFoundation
 (`encode.swift`), so it needs macOS but no ffmpeg. After a UI change in the app,
 re-check `screens.html` against the changed components, then re-run all three.
+
+## Terms and Conditions, Privacy Policy
+
+`terms.html` and `privacy.html` show the app's own legal texts (English and
+Romanian), copied from `casita-react-native/src/i18n/locales/<lang>/legal.json`
+into `src/legal/` with their "last updated" date (`LEGAL_LAST_UPDATED` in the
+app). After changing them in the app, run `npm run sync:legal` here and commit.
+The draft notice shows on the site as long as the app has one (`draftNotice`).

@@ -1,0 +1,90 @@
+{
+  "close": "Close",
+  "draftNotice": "Temporary draft for testing. The final version will replace it before release.",
+  "updated": "Last updated: {{date}}",
+  "agreement": "By continuing, you agree to our <terms>Terms and Conditions</terms> and <privacy>Privacy Policy</privacy>.",
+  "termsLink": "Terms",
+  "privacyLink": "Privacy",
+  "terms": {
+    "title": "Terms and Conditions",
+    "sections": [
+      {
+        "title": "1. Who we are",
+        "body": "Casita is provided by [Company legal name], registered in Romania (CUI [RO00000000]), [address]. Contact: [support email]. By using the app you accept these Terms."
+      },
+      {
+        "title": "2. The service",
+        "body": "Casita is a personal budgeting tool for recording income, spendings, caps, merchants and savings vaults.\n\n• It is not financial, tax or legal advice.\n• You enter the data; we do not check it.\n• The app does not connect to your bank or move money."
+      },
+      {
+        "title": "3. Accounts",
+        "body": "• You must be at least 16. Under 18, a parent or guardian must agree.\n• Guest mode keeps data only on your device, until you delete it or uninstall the app. When you sign in, the app offers to move your guest data to your account. You can decline, and anything not moved stays on your device.\n• You can delete your account in Settings → Data & Danger Zone. This does not cancel a store subscription."
+      },
+      {
+        "title": "4. Free plan",
+        "body": "Free accounts can have up to 8 categories, 3 vaults and 30 merchants, with monthly insights. If we lower the limits, you keep what you already have."
+      },
+      {
+        "title": "5. Casita Pro",
+        "body": "Annual €39.99/year (7-day free trial), Monthly €4.99/month, or Lifetime €119.99 once. Prices include VAT; other countries' prices are set by Apple or Google.\n\n• Payment is made through the App Store or Google Play.\n• Subscriptions renew automatically unless cancelled at least 24 hours before the period ends.\n• Cancel in your store's subscription settings. You keep Pro until the paid period ends."
+      },
+      {
+        "title": "6. Withdrawal and refunds",
+        "body": "Casita Pro starts immediately after purchase. You agree to this and acknowledge that you lose the 14-day right of withdrawal (OUG 34/2014, art. 16 letter m). Refunds for store purchases are handled by Apple or Google."
+      },
+      {
+        "title": "7. Acceptable use",
+        "body": "Do not use the app unlawfully, access other users' data, reverse-engineer it, bypass its limits or purchases, or disrupt it."
+      },
+      {
+        "title": "8. Liability",
+        "body": "You keep all rights consumer law gives you. We are not responsible for decisions based on the app's figures, for data you entered incorrectly, or for guest data lost with your device."
+      },
+      {
+        "title": "9. Changes and law",
+        "body": "We will notify you at least 30 days before material changes. Romanian law applies. Complaints: [support email], ANPC (anpc.ro) or its alternative dispute resolution service (SAL)."
+      }
+    ]
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "sections": [
+      {
+        "title": "In short",
+        "body": "In guest mode your data stays on your phone, unless you choose to move it to your account. With an account, it is stored on our servers in the EU. We do not sell your data, show ads, track you across apps, or use analytics."
+      },
+      {
+        "title": "1. Who is responsible",
+        "body": "[Company legal name], [address], is the data controller. Contact: [privacy email]."
+      },
+      {
+        "title": "2. What we process",
+        "body": "• Budget data (income, spendings, categories, merchants, vaults), to provide the app.\n• Account data: name, email and account ID, from Google, Apple or email sign-in; with Google, also your profile photo; with email, your password, which is never stored in readable form. Used to sign you in and sync your data.\n• Sign-in tokens, kept in your phone's secure storage (Keychain / Keystore) so you stay signed in.\n• Purchase status, to unlock Casita Pro.\n• Settings and notification choices.\n\nWe do not collect your location, contacts, photos, bank credentials or advertising IDs. Face ID and fingerprint checks stay on your device."
+      },
+      {
+        "title": "3. Where it is stored",
+        "body": "Guest data stays on your device. It is sent to us only if you choose to move it to your account after signing in. Account data is hosted by [hosting provider] in the EU."
+      },
+      {
+        "title": "4. Who we share it with",
+        "body": "Only our hosting provider, Apple and Google (sign-in and purchases; your Google profile photo is loaded from Google), and authorities where the law requires. Transfers outside the EU are protected by the EU–US Data Privacy Framework or Standard Contractual Clauses."
+      },
+      {
+        "title": "5. How long we keep it",
+        "body": "Guest data: on your device, until you delete it or uninstall the app. Account data: until you delete your account (then within 30 days). Categories and merchants you delete are hidden but kept with your data, so past spendings still show their names; they are erased with your account or guest data. Purchase records: as long as Romanian accounting law requires."
+      },
+      {
+        "title": "6. Your rights",
+        "body": "You can ask for access, correction, deletion, portability, restriction or objection at [privacy email]. We reply within one month. You can also complain to ANSPDCP (dataprotection.ro)."
+      },
+      {
+        "title": "7. Permissions",
+        "body": "Notifications and Face ID / fingerprint are optional, asked for only when you turn them on, and can be withdrawn in your phone's settings. Notifications (budget alerts and monthly plan reminders) are created on your phone, not sent from our servers."
+      },
+      {
+        "title": "8. Children and changes",
+        "body": "Casita is not meant for children under 16. We will tell you in the app before material changes to this policy."
+      }
+    ]
+  }
+}

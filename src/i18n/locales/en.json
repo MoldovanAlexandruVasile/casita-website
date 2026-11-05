@@ -1,6 +1,8 @@
 {
   "meta": {
-    "title": "Casita · A calm household budget, coming soon to iPhone and Android"
+    "title": "Casita · A calm household budget, coming soon to iPhone and Android",
+    "privacyTitle": "Privacy Policy · Casita",
+    "termsTitle": "Terms and Conditions · Casita"
   },
   "nav": {
     "screens": "Screens",
@@ -22,7 +24,6 @@
   },
   "screens": {
     "title": "A closer look",
-    "lead": "Real screens from the app, with demo data.",
     "region": "Screenshots",
     "previous": "Previous screenshot",
     "next": "Next screenshot",
@@ -145,6 +146,13 @@
     "text": "We're putting the finishing touches on it. Casita launches soon on the App Store and Google Play; check back here for the links."
   },
   "footer": {
-    "note": "Coming soon to iPhone and Android."
+    "note": "Coming soon to iPhone and Android.",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "legal": {
+    "back": "← Back to Casita",
+    "privacy": "Privacy Policy",
+    "terms": "Terms and Conditions"
   }
 }

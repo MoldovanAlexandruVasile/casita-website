@@ -1,6 +1,8 @@
 {
   "meta": {
-    "title": "Casita · Bugetul casei, liniștit. În curând pe iPhone și Android"
+    "title": "Casita · Bugetul casei, liniștit. În curând pe iPhone și Android",
+    "privacyTitle": "Politica de confidențialitate · Casita",
+    "termsTitle": "Termeni și condiții · Casita"
   },
   "nav": {
     "screens": "Ecrane",
@@ -22,7 +24,6 @@
   },
   "screens": {
     "title": "Aruncă o privire",
-    "lead": "Ecrane reale din aplicație, cu date demonstrative.",
     "region": "Capturi de ecran",
     "previous": "Captura anterioară",
     "next": "Captura următoare",
@@ -145,6 +146,13 @@
     "text": "Îi dăm ultimele retușuri. Casita se lansează în curând în App Store și Google Play; revino aici pentru linkuri."
   },
   "footer": {
-    "note": "În curând pe iPhone și Android."
+    "note": "În curând pe iPhone și Android.",
+    "privacy": "Confidențialitate",
+    "terms": "Termeni"
+  },
+  "legal": {
+    "back": "← Înapoi la Casita",
+    "privacy": "Politica de confidențialitate",
+    "terms": "Termeni și condiții"
   }
 }
