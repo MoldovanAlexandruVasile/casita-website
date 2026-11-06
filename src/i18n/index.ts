@@ -34,8 +34,9 @@ i18n
 export const currentLanguage = (): Language => (i18n.resolvedLanguage === "ro" ? "ro" : "en");
 
 // Keep <html lang> in step, for screen readers and hyphenation.
+// (Not at build time: scripts/prerender.mjs renders the pages in Node.)
 const syncHtmlLang = () => {
-  document.documentElement.lang = currentLanguage();
+  if (typeof document !== "undefined") document.documentElement.lang = currentLanguage();
 };
 syncHtmlLang();
 i18n.on("languageChanged", syncHtmlLang);

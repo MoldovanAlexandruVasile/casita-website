@@ -75,3 +75,24 @@ Romanian), copied from `casita-react-native/src/i18n/locales/<lang>/legal.json`
 into `src/legal/` with their "last updated" date (`LEGAL_LAST_UPDATED` in the
 app). After changing them in the app, run `npm run sync:legal` here and commit.
 The draft notice shows on the site as long as the app has one (`draftNotice`).
+
+## SEO
+
+- **Site address:** `VITE_SITE_URL` in `.env` (with the trailing `/`) is used for the
+  canonical links, social card, structured data and sitemap. Change it there if
+  the site moves to a custom domain.
+- **Pre-rendered HTML:** `npm run build` ends with `scripts/prerender.mjs`, which
+  renders each page in English (`src/prerender.tsx`) into its `<div id="root">`,
+  so search engines and link previews see the real content. In the browser,
+  `src/mount.tsx` takes over that HTML for English visitors and re-renders it
+  for Romanian ones.
+- **Head tags** (`index.html`): description, canonical, Open Graph and Twitter
+  cards, and JSON-LD (`WebSite` + `MobileApplication`).
+- **Social card:** `public/og-image.jpg` (1200×630), made by `capture/og.mjs`
+  from `og.html` and the real home screen (`node screens.mjs en` first).
+- **robots.txt and sitemap.xml** are written into `dist/` at build time. While
+  the legal texts are drafts, `privacy.html` and `terms.html` carry
+  `noindex` and stay out of the sitemap; remove that tag once they're final.
+- On a GitHub Pages project address, crawlers only read `robots.txt` from the
+  root of `github.io`, so submit `sitemap.xml` in Google Search Console instead
+  (the site is verified there via `public/google66728fbf56a6b89f.html`).
