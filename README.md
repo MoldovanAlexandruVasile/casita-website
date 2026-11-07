@@ -2,8 +2,8 @@
 
 Presentation page for Casita, the household budgeting app for iPhone and
 Android. For now it only announces the app as **coming soon**: no download or
-store links anywhere. React + TypeScript + Vite + Tailwind CSS v4, deployed to
-GitHub Pages. Same setup as `tivren-website`.
+store links anywhere. React + TypeScript + Vite + Tailwind CSS v4, hosted on
+Netlify. Same setup as `tivren-website`.
 
 ## Run
 
@@ -16,9 +16,11 @@ npm run lint
 
 ## Deploy
 
-Pushing to `main` builds and publishes the site
-(`.github/workflows/deploy.yml`). One-time setup on GitHub: Settings → Pages →
-Source: **GitHub Actions**.
+Hosted on Netlify at https://casita.netlify.app. Pushing to `main` builds and publishes the
+site (settings in `netlify.toml`). One-time setup in Netlify: import this repo,
+and under Site configuration → Environment variables add `NODE_AUTH_TOKEN` (a
+GitHub token with `read:packages`, marked secret, Builds scope) so npm can
+install `@moldovanalexandruvasile/unity-marketing` from GitHub Packages.
 
 ## At launch
 
@@ -93,6 +95,6 @@ The draft notice shows on the site as long as the app has one (`draftNotice`).
 - **robots.txt and sitemap.xml** are written into `dist/` at build time. While
   the legal texts are drafts, `privacy.html` and `terms.html` carry
   `noindex` and stay out of the sitemap; remove that tag once they're final.
-- On a GitHub Pages project address, crawlers only read `robots.txt` from the
-  root of `github.io`, so submit `sitemap.xml` in Google Search Console instead
-  (the site is verified there via `public/google66728fbf56a6b89f.html`).
+- The site is at its domain's root, so crawlers read `robots.txt` and find the
+  sitemap from it. Submitting `sitemap.xml` in Google Search Console speeds that
+  up (`public/google66728fbf56a6b89f.html` verifies the site there).
