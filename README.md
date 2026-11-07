@@ -16,7 +16,7 @@ npm run lint
 
 ## Deploy
 
-Hosted on Netlify at https://casita.netlify.app. Pushing to `main` builds and publishes the
+Hosted on Netlify at https://casita-budget.netlify.app. Pushing to `main` builds and publishes the
 site (settings in `netlify.toml`). One-time setup in Netlify: import this repo,
 and under Site configuration → Environment variables add `NODE_AUTH_TOKEN` (a
 GitHub token with `read:packages`, marked secret, Builds scope) so npm can
